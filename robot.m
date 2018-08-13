@@ -9,7 +9,7 @@ close all
 %
 %angulos iniciais
 theta1 = pi/4;
-theta2 = pi/6;
+theta2 = -pi/6;
 theta3 = 0;
 
 %ponto final desejado
@@ -60,8 +60,8 @@ for i = 0:dt:2
     theta2 = theta2 + G(2,1)*dt;
     theta3 = theta3 + G(3,1)*dt;
 
-    x = [cos(theta1)+cos(theta1+theta2)+cos(theta1+theta2+theta3);...
-    sin(theta1)+sin(theta1+theta2)+sin(theta1+theta2+theta3)];
+    %x = [cos(theta1)+cos(theta1+theta2)+cos(theta1+theta2+theta3);...
+    %sin(theta1)+sin(theta1+theta2)+sin(theta1+theta2+theta3)];
     count = count + 1;
     if(i==0)
     disp(J);

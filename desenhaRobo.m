@@ -1,19 +1,27 @@
-function [  ] = desenhaRobo( q, L )
+function [  ] = desenhaRobo( q, L, xd, Obs, cor)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-    x = fk(q,L);
-    point1 = [L(1)*cos(q(1)) ; L(2)*sin(q(1))]; %primeiro segmento
-    point2 = point1 + [L(2)*cos(theta1+theta2);L(2)*sin(theta1+theta2)]; %segundo segmento
+    xmax = sum(L);
+    ymax = sum(L);
+    m = length(q);
+    plot(0,0);
+    hold on;
+    qc = cumsum(q);
+    x(1) = 0;
+    y(1) = 0;
+    for j = 1:m
+        x(j+1) = L(1:j)*cos(qc(1:j));
+        y(j+1) = L(1:j)*sin(qc(1:j));
+        plot([x(j) x(j+1)], [y(j) y(j+1)], cor, 'linewidth', 2); 
+        plot(x(j+1),y(j+1),'ob','markersize',6)
+        plot(xd(1),xd(2),'x');
+    end
     
-    plot([0,point1(1)],[0,point1(2,1)])
-    hold on
-    plot([point1(1),point2(1)],[point1(2,1),point2(2,1)])
-    plot([point2(1),x(1)],[point2(2,1),x(2,1)])
-    plot(x(1),x(2),'o')
-    plot(xd(1),xd(2),'x');
-     axis([-3 3 -3 3])
-    axis square
-    hold off
-    m = getframe();
+    %plota os obstaculos
+    for j = 1:length(Obs)
+        Obs(j).desenha('black');
+    end
+    axis([0 xmax 0 ymax]);
+    hold off;
 end
 
